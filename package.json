@@ -22,9 +22,7 @@
     "mongoose": "*",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "*"
-  },
-  "devDependencies": {
+    "passport-local": "*",
     "embed-video": "^2.0.0",
     "mysql": "^2.13.0",
     "nodemailer": "^4.0.1",
