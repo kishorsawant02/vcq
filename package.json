@@ -2,9 +2,9 @@
   "name": "vcq",
   "version": "1.0.1",
   "description": "video questionaries,authentication,",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "sujitsawant",
   "license": "ISC",
