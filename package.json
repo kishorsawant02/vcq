@@ -1,0 +1,34 @@
+{
+  "name": "vcq",
+  "version": "1.0.1",
+  "description": "video questionaries,authentication,",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sujitsawant",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.1",
+    "express": "*",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "mongodb": "*",
+    "mongoose": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*"
+  },
+  "devDependencies": {
+    "embed-video": "^2.0.0",
+    "mysql": "^2.13.0",
+    "nodemailer": "^4.0.1",
+    "passport-local": "^1.0.0",
+    "twilio": "^3.4.0"
+  }
+}
