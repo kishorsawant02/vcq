@@ -1,11 +1,11 @@
 module.exports = {
     'envConfig': {
-        host: 'localhost',
+        host: 'us-cdbr-iron-east-03.cleardb.net',
         connectionLimit : 10,
         port: '3306',
-        user: 'root',
-        password: 'root',
-        database: 'vcapp',
+        user: 'bcdce0e20389fd',
+        password: '976ccf7b',
+        database: 'heroku_fb3d72849acbd1b',
         waitForConnections: true
     },
     'authoring': {
