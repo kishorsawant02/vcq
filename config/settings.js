@@ -1,5 +1,5 @@
 module.exports = {
-    'envConfig': {
+    /*'envConfig': {
         host: 'us-cdbr-iron-east-03.cleardb.net',
         connectionLimit : 10,
         port: '3306',
@@ -7,10 +7,20 @@ module.exports = {
         password: '976ccf7b',
         database: 'heroku_fb3d72849acbd1b',
         waitForConnections: true
+    },*/
+    'envConfig': {
+        host: 'localhost',
+        connectionLimit : 10,
+        port: '3306',
+        user: 'root',
+        password: 'root',
+        database: 'vcapp',
+        waitForConnections: true
     },
     'authoring': {
     	'passwordError' : 'Please enter correct password',
-    	'userNameError' : 'Please enter correct Mobile Number'
+    	'userNameError' : 'Please enter correct Mobile Number',
+        'submitted': 'You have alredy answered todays question.<br /> Please come back tomorrow for next question.'
     },
     'notification': {
         host: 'smtp.gmail.com',
