@@ -2,6 +2,7 @@
 var assert =  require('assert');
 var utils = require('../config/utils');
 var config = require('../config/settings');
+var moment = require('moment');
 
 //Register Question
 var _createQuestion = function (Question, callback) {
@@ -20,7 +21,7 @@ var _deleteQuestion = function (Question) {
 
 // fetch logged-in Question details
 var _getQuestion = function (callback) {
-	var date = 138;
+	var date = moment().date();
 	utils.getConnection(function (error, connection) {
         if(error) {
             callback(error);
@@ -31,7 +32,7 @@ var _getQuestion = function (callback) {
             	var error = null;
             	switch(results.length) {
             		case 0: 
-            			error = {message: config.authoring.userNameError };
+            			error = {message: config.authoring.submitted};
             			break;
             	}
             	callback(error, results, fields);

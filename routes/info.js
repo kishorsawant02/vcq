@@ -15,7 +15,7 @@ router.get('/quiz',ensureAuthenticated , function(req, res) {
     questionApi.getQuestion(function (err, results, fields) {
         if (err) {
             req.flash('error_msg', err.message);
-            res.redirect('error');
+            res.redirect('/error');
         } else{
         	results[0].url = embed(results[0].url);
         	results[0].options = results[0].options.split(',');

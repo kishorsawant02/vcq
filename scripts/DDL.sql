@@ -18,7 +18,7 @@ CREATE TABLE question (
   id INT NOT NULL,
   url VARCHAR(255) NULL,
   options VARCHAR(255) NULL,
+  ques_date INT(20) NULL,
   ques_title VARCHAR(255) NULL,
-  ques_date INT(13) NULL,
   PRIMARY KEY (id));
 

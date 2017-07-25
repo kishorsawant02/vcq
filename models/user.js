@@ -64,8 +64,24 @@ var _getUser = function (username, password, callback) {
 };
 
 //get all user details for admin Panel
-var _getAllUser = function (user) {
-	console.log(user);
+var _getAllUser = function (callback) {
+	utils.getConnection(function (error, connection) {
+        if(error) {
+            callback(error);
+        } else {
+            var query = 'SELECT mobile, city, state FROM user';
+            utils.operation(query, connection, function (error, results, fields) {
+            	if(error) {callback (error);}
+            	var error = null;
+            	switch(results.length) {
+            		case 0: 
+            			error = {message: config.authoring.submitted};
+            			break;
+            	}
+            	callback(error, results, fields);
+            });
+        }
+    });
 };
 
 function getKeyValueArray(object) {

@@ -22,11 +22,11 @@
     "mongoose": "*",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "*",
+    "passport-local": "^1.0.0",
     "embed-video": "^2.0.0",
     "mysql": "^2.13.0",
     "nodemailer": "^4.0.1",
-    "passport-local": "^1.0.0",
+    "moment": "^2.18.1",
     "twilio": "^3.4.0"
   }
 }
