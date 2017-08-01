@@ -1,6 +1,7 @@
 var credential = require('./credential');
 var nodemailer = require('nodemailer');
-var emailTemplate = require('../notification/registerEmail');
+var registerEmail = require('../notification/registerEmail');
+var contactusEmail = require('../notification/contactusEmail');
 
 /**
 * credentialure sender mail
@@ -17,20 +18,31 @@ function _getMailTransporter() {
     });
     return transporter;
 }
-function _getMailOptions (user, subject, template) {
+function _getMailOptions (user, subject, template, type) {
 	var mailOptions = {
 	    from: credential.email.user, // sender address
-	    to: user.email, // list of receivers
 	    subject: subject, // Subject line
 	    html: template// html body
 	};
-	return mailOptions
+    switch(type) {
+        case 'REGISTRATION':
+            mailOptions['to'] = user.email;
+        break;
+        case 'CONTACTUS':
+            mailOptions['to'] = credential.email.user; //support email id
+            mailOptions['cc'] = user.email;
+        break;
+    }
+	return mailOptions;
 }
 function _getMailTemplate (user, type) {
     var template ;
     switch(type) {
         case 'REGISTRATION':
-            template = emailTemplate.registrationEmailFormat(user)
+            template = registerEmail.registrationEmailFormat(user);
+        break;
+        case 'CONTACTUS':
+            template = contactusEmail.contactUsEmailFormat(user);
         break;
     }
     return template;
@@ -42,6 +54,9 @@ function _getMailSubject (type) {
         case 'REGISTRATION':
             subject = 'Registration Success!!!!'
         break;
+        case 'CONTACTUS':
+             subject = 'Your Query submitted Successfully!!!!'
+        break;
     }
     return subject;
 }
@@ -50,7 +65,7 @@ function _triggerMail(user, type) {
 	var transporter = _getMailTransporter();
     var template = _getMailTemplate(user,type);
     var subject = _getMailSubject(type);
-	var mailOptions = _getMailOptions(user, subject, template);
+	var mailOptions = _getMailOptions(user, subject, template, type);
     return new Promise(function (resolve, reject) {
         transporter.sendMail(mailOptions, function (error, info) {
             if (info){ 

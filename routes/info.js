@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var embed = require("embed-video");
+var config = require('../config/settings');
+var mail = require('../config/mail');
 var questionApi = require('../models/question');
 
 router.get('/quiz',ensureAuthenticated , function(req, res) {
@@ -31,8 +33,15 @@ router.get('/contact', function(req, res) {
 	console.log('req.user', req.user);
     res.render('contact');
 });
-router.post('/contactForm', function () {
-	console.log(JSON.stringify(res.body));
+router.post('/contactForm', function (req, res) {
+	var mailPromise = mail.triggerMail(req.body, 'CONTACTUS');
+	mailPromise.then(function () {
+		req.flash('success_msg', config.authoring.contactFormSuccessMsg);
+        res.redirect('/');
+	}, function () {
+		req.flash('error_msg', config.authoring.contactFormErrorMsg);
+        res.redirect('/');
+	});
 });
 
 function submitPreference() {
