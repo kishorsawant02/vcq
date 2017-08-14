@@ -18,8 +18,10 @@ var LocalStrategy = require('passport-local').Strategy;
 //var db = mongoose.connection;
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
-var info = require('./routes/info');
+var user = require('./routes/user');
+var quiz = require('./routes/quiz');
+var contactus = require('./routes/contactus');
+var register = require('./routes/register');
 var admin = require('./routes/admin');
 
 //init App
@@ -60,9 +62,11 @@ app.use(function (req, res, next) {
 });
 //router
 app.use('/', routes);
-app.use('/users', users);
-app.use('/info', info);
+app.use('/user', user);
+app.use('/contactus', contactus);
+app.use('/quiz', quiz);
 app.use('/admin', admin);
+app.use('/register', register);
 
 //set port
 app.set('port', (process.env.PORT) || 3000);
