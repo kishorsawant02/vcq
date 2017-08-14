@@ -24,12 +24,5 @@ module.exports = {
         'contactFormSuccessMsg': 'You Request submitted successfully, Our representative will get in touch.',
         'contactFormErrorMsg': 'We couldn;t submit your request,Please try after sometime.'
     },
-    'notification': {
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true, // secure:true for port 465, secure:false for port 587
-        user: 'lendenonline@gmail.com',
-        pass: 'abc123xyz'
-    },
     saltRounds: 10
 };
