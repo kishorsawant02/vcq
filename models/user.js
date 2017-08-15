@@ -4,6 +4,8 @@ var utils = require('../config/utils');
 var config = require('../config/settings');
 var bcrypt = require('bcryptjs');
 
+
+var adminQuery = "SELECT mobile, firstName, ques_date, ans_option  FROM user,user_ques where user.mobile = user_ques.user_id;"
 //Register user
 var _createUser = function (user, callback) {
 	bcrypt.hash(user.password, config.saltRounds, function (error, hash) {
@@ -69,7 +71,7 @@ var _getAllUser = function (callback) {
         if(error) {
             callback(error);
         } else {
-            var query = 'SELECT mobile, city, state FROM user';
+            var query = adminQuery;
             utils.operation(query, connection, function (error, results, fields) {
             	if(error) {callback (error);}
             	var error = null;

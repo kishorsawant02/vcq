@@ -19,6 +19,21 @@ var _deleteQuestion = function (Question) {
 	console.log(Question);
 };
 
+//save Preferance 
+var _savePreference = function (payload, callback) {
+	utils.getConnection(function (error, connection) {
+        if(error) {
+            callback(error);
+        } else {
+        	var data = getKeyValueArray(payload);
+            var query = 'INSERT INTO user_ques (`' + data.keys.join('`, `')+ '`) VALUES (\'' + data.values.join('\', \'') + '\');';
+            utils.operation(query, connection, function (error, results, fields) {
+            	callback(error, results, fields);
+            });
+        }
+    });
+};
+
 // fetch logged-in Question details
 var _getQuestion = function (callback) {
 	var date = moment().date();
@@ -59,5 +74,6 @@ module.exports = {
 	'updateQuestion' : _updateQuestion,
 	'deleteQuestion' : _deleteQuestion,
 	'getQuestion' : _getQuestion,
-	'getAllQuestion' : _getAllQuestion
+	'getAllQuestion' : _getAllQuestion,
+	'savePreference' : _savePreference
 };

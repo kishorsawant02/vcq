@@ -22,3 +22,10 @@ CREATE TABLE question (
   ques_title VARCHAR(255) NULL,
   PRIMARY KEY (id));
 
+CREATE TABLE user_ques (
+  user_ques_id varchar(255),
+  user_id VARCHAR(255) NOT NULL,
+  ques_id VARCHAR(255) NOT NULL,
+  ques_date VARCHAR(255) NOT NULL,
+  ans_option VARCHAR(45) NOT NULL,
+  PRIMARY KEY (user_ques_id));

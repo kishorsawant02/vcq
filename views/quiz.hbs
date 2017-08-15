@@ -7,16 +7,19 @@
 	<div>
 		<h3>{{data.ques_title}}</h3>
 	</div>
-	<div class="">
-		{{#each data.options}}
-		    <div class="">
-	  			<input type="radio" name="gender" id="{{.}}" value="male" required>
-		        <label for="{{.}}">{{.}}</label>
-		    </div>
-	    {{/each}}
-  	</div>
-  	<br>
- 	<div class="">
-  		<input type="button" id="submitPreference" class="btn btn-primary" onclick="submitPreference()" value="Click Me!">
-  	</div>
+  	<form method="post" action="/quiz/savePreferance">
+		<div class="row form-group">
+            <div class="">
+				{{#each data.options}}
+		    		<div class="input-group">
+				  			<input type="radio" name="options" id="{{.}}" value="{{.}}" required>
+					        <label for="{{.}}">{{.}}</label>
+		            </div>
+			    {{/each}}		
+			</div>
+		</div>
+		<div class="row form-group">
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</div>
+	</form>
 </div>

@@ -10,18 +10,20 @@
 		<table class="table">
 			<thead>
 			    <tr>
-			        <th>Firstname</th>
-			        <th>Lastname</th>
-			        <th>Email</th>
+			        <th>User Id</th>
+			        <th>FirstName</th>
+			        <th>Question ID</th>
+			        <th>Answer Option</th>
 			    </tr>
 			</thead>
 		    <tbody>
 		    	{{#each data}}
-		        	<tr>
-				       <td>{{mobile}}</td>
-				       <td>{{city}}</td>
-				       <td>{{state}}</td>
-			      </tr>
+			        <tr>
+	      		        <td>{{mobile}}</td>
+					    <td>{{firstName}}</td>
+					    <td>{{#each ques_date}} {{.}}<br>{{/each}}</td>
+					    <td>{{#each ans_option}} {{.}}<br>{{/each}}</td>
+     		        </tr>
 			    {{/each}}
 		    </tbody>
 		</table>
