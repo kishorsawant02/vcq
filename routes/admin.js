@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var userApi = require('../models/user');
+var api = require('../models/user');
 var _ = require('lodash');
+var utils = require('../config/utils');
 
 
-router.get('/', ensureAuthenticated , function(req, res) {
-    userApi.getAllUser(function(err, results, fields) {
+router.get('/', utils.ensureAuthenticated , function(req, res) {
+    api.getAllUser(function(err, results, fields) {
             if (err) {
                 req.flash('error_msg', err.message);
                 res.redirect('/error');
@@ -30,16 +31,7 @@ router.get('/', ensureAuthenticated , function(req, res) {
         }
     });
 });
-function ensureAuthenticated(req, res, next){
-	console.log('req.user', req.user);
-	if(req.isAuthenticated()){
-		return next();
-	} else {
-		console.log('req.user', req.user);
-		res.redirect('/user/login');
-		console.log('req.user', req.user);
-	}
-}
+
 router.get('/error', function(req, res) {
     res.render('error');
 });

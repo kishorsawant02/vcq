@@ -24,7 +24,29 @@ function _operation (q, connection, callback) {
 		callback(error, results, fields)    	
 	});
 }
+
+function _getKeyValueArray(object) {
+	var keys = [], values = [];
+	for(var i in object) {
+		keys.push(i);
+		values.push(object[i]);
+	}
+	return {keys:keys,values: values};
+}
+
+function _ensureAuthenticated(req, res, next){
+	console.log('req.user', req.user);
+	if(req.isAuthenticated()){
+		return next();
+	} else {
+		console.log('req.user', req.user);
+		res.redirect('/user/login');
+		console.log('req.user', req.user);
+	}
+}
 module.exports = {
 	'getConnection' : _getConnection,
-	'operation': _operation
+	'operation': _operation,
+	'getKeyValueArray': _getKeyValueArray,
+	'ensureAuthenticated': _ensureAuthenticated
 };

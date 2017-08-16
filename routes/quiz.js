@@ -4,9 +4,10 @@ var embed = require("embed-video");
 var config = require('../config/settings');
 var api = require('../models/question');
 var moment = require('moment');
+var utils = require('../config/utils');
 
 // quiz page render
-router.get('/',ensureAuthenticated , function(req, res) {
+router.get('/', utils.ensureAuthenticated , function(req, res) {
 	/*var youtubeUrl = "https://www.youtube.com/watch?v=CU1woo3MVgE";
 	var question = 'Pick correct options from below after video';
 	var options = ['options A','option B', 'option C', 'options D'];
@@ -15,20 +16,28 @@ router.get('/',ensureAuthenticated , function(req, res) {
 	*/
 	//req.flash('success_msg', 'Loading ........');
 	//res.render('loader');
-    api.getQuestion(function (err, results, fields) {
-        if (err) {
-            req.flash('error_msg', err.message);
-            res.redirect('/error');
-        } else{
-        	results[0].url = embed(results[0].url);
-        	results[0].options = results[0].options.split(',');
-            /*var youtubeUrl = "https://www.youtube.com/watch?v=CU1woo3MVgE";
-			var question = 'Pick correct options from below after video';
-			var options = ['options A','option B', 'option C', 'options D'];*/
-			console.log('+++++req.user', req.user);
-		    res.render('quiz', {title :'Watch Video carefully', data: results[0]});
-        }
-    });
+	var user_id = res.locals.user;
+	api.isQuestionAnswered(user_id, function (err, results, fields) {
+		if (err || (results.length > 0)) {
+			req.flash('error_msg', config.authoring.alreadyAnswered);
+		    res.redirect('/');
+		} else {
+		    api.getQuestion(function (err, results, fields) {
+		        if (err) {
+		            req.flash('error_msg', err.message);
+		            res.redirect('/error');
+		        } else{
+		        	results[0].url = embed(results[0].url);
+		        	results[0].options = results[0].options.split(',');
+		            /*var youtubeUrl = "https://www.youtube.com/watch?v=CU1woo3MVgE";
+					var question = 'Pick correct options from below after video';
+					var options = ['options A','option B', 'option C', 'options D'];*/
+					console.log('+++++req.user', req.user);
+				    res.render('quiz', {title :'Watch Video carefully', data: results[0]});
+		        }
+		    });
+		}		
+	});
 });
 router.post('/savePreferance', function(req, res) {
 	// question date and question id would be same.
@@ -50,14 +59,4 @@ router.post('/savePreferance', function(req, res) {
     });
 });
 
-function ensureAuthenticated(req, res, next){
-	console.log('req.user', req.user);
-	if(req.isAuthenticated()){
-		return next();
-	} else {
-		console.log('req.user', req.user);
-		res.redirect('/user/login');
-		console.log('req.user', req.user);
-	}
-}
 module.exports = router;

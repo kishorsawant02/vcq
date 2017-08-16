@@ -2,6 +2,7 @@ var credential = require('./credential');
 var nodemailer = require('nodemailer');
 var registerEmail = require('../notification/registerEmail');
 var contactusEmail = require('../notification/contactusEmail');
+var forgotPasswordEmail = require('../notification/forgotPasswordEmail');
 
 /**
 * credentialure sender mail
@@ -28,6 +29,9 @@ function _getMailOptions (user, subject, template, type) {
         case 'REGISTRATION':
             mailOptions['to'] = user.email;
         break;
+        case 'FORGOTPASSWORD':
+            mailOptions['to'] = user.email;
+        break;
         case 'CONTACTUS':
             mailOptions['to'] = credential.email.user; //support email id
             mailOptions['cc'] = user.email;
@@ -41,6 +45,9 @@ function _getMailTemplate (user, type) {
         case 'REGISTRATION':
             template = registerEmail.registrationEmailFormat(user);
         break;
+        case 'FORGOTPASSWORD':
+            template = forgotPasswordEmail.forgotPasswordEmailFormat(user);
+        break;
         case 'CONTACTUS':
             template = contactusEmail.contactUsEmailFormat(user);
         break;
@@ -53,6 +60,9 @@ function _getMailSubject (type) {
     switch(type) {
         case 'REGISTRATION':
             subject = 'Registration Success!!!!'
+        break;
+        case 'FORGOTPASSWORD':
+             subject = 'Password reset Successfully!!!!'
         break;
         case 'CONTACTUS':
              subject = 'Your Query submitted Successfully!!!!'

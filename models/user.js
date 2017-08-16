@@ -13,7 +13,7 @@ var _createUser = function (user, callback) {
 			callback(error);
 		} else {
 			user.password = hash;
-			var data = getKeyValueArray(user);
+			var data = utils.getKeyValueArray(user);
 			utils.getConnection(function (error, connection) {
 		        if(error) {
 		            callback(error);
@@ -86,14 +86,6 @@ var _getAllUser = function (callback) {
     });
 };
 
-function getKeyValueArray(object) {
-	var keys = [], values = [];
-	for(var i in object) {
-		keys.push(i);
-		values.push(object[i]);
-	}
-	return {keys:keys,values: values};
-};
 module.exports = {
 	'createUser' : _createUser,
 	'updateUser' : _updateUser,

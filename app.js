@@ -22,6 +22,7 @@ var user = require('./routes/user');
 var quiz = require('./routes/quiz');
 var contactus = require('./routes/contactus');
 var register = require('./routes/register');
+var changePassword = require('./routes/changePassword');
 var admin = require('./routes/admin');
 
 //init App
@@ -67,6 +68,7 @@ app.use('/contactus', contactus);
 app.use('/quiz', quiz);
 app.use('/admin', admin);
 app.use('/register', register);
+app.use('/changePassword', changePassword);
 
 //set port
 app.set('port', (process.env.PORT) || 3000);

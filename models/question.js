@@ -4,19 +4,19 @@ var utils = require('../config/utils');
 var config = require('../config/settings');
 var moment = require('moment');
 
-//Register Question
-var _createQuestion = function (Question, callback) {
-
-};
-
-//Update  Question details
-var _updateQuestion = function (Question) {
-	console.log(Question);
-};
-
-//Delete particular Question
-var _deleteQuestion = function (Question) {
-	console.log(Question);
+//particular Question
+var _isQuestionAnswered = function (payload, callback) {
+    var user_ques_id =  payload + moment().date();
+    utils.getConnection(function (error, connection) {
+        if(error) {
+            callback(error);
+        } else {
+            var query = 'SELECT * FROM user_ques WHERE user_ques_id =' + user_ques_id +';';
+            utils.operation(query, connection, function (error, results, fields) {
+                callback(error, results, fields);
+            });
+        }
+    });
 };
 
 //save Preferance 
@@ -25,7 +25,7 @@ var _savePreference = function (payload, callback) {
         if(error) {
             callback(error);
         } else {
-        	var data = getKeyValueArray(payload);
+        	var data = utils.getKeyValueArray(payload);
             var query = 'INSERT INTO user_ques (`' + data.keys.join('`, `')+ '`) VALUES (\'' + data.values.join('\', \'') + '\');';
             utils.operation(query, connection, function (error, results, fields) {
             	callback(error, results, fields);
@@ -61,18 +61,8 @@ var _getAllQuestion = function (Question) {
 	console.log(Question);
 };
 
-function getKeyValueArray(object) {
-	var keys = [], values = [];
-	for(var i in object) {
-		keys.push(i);
-		values.push(object[i]);
-	}
-	return {keys:keys,values: values};
-};
 module.exports = {
-	'createQuestion' : _createQuestion,
-	'updateQuestion' : _updateQuestion,
-	'deleteQuestion' : _deleteQuestion,
+	'isQuestionAnswered' : _isQuestionAnswered,
 	'getQuestion' : _getQuestion,
 	'getAllQuestion' : _getAllQuestion,
 	'savePreference' : _savePreference

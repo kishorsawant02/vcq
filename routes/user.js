@@ -2,9 +2,8 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var userApi = require('../models/user');
-var mail = require('../config/mail');
-var sms = require('../config/sms');
+var api = require('../models/user');
+var password_api = require('../models/password');
 
 //Login Page
 router.get('/login', function(req, res) {
@@ -12,7 +11,7 @@ router.get('/login', function(req, res) {
 });
 
 /*router.post('/login', function(req, res) {
-     userApi.getUser(req.body, function (err, results, fields) {
+     api.getUser(req.body, function (err, results, fields) {
         if (err) {
             req.flash('error_msg', err.message);
             res.redirect('/users/login');
@@ -26,7 +25,7 @@ router.get('/login', function(req, res) {
 passport.use(new LocalStrategy(
   function(username, password, done) {
     console.log('username', +username);
-    userApi.getUser(username, password, function (err, results, fields) {
+    api.getUser(username, password, function (err, results, fields) {
         if (err) {
             return done(null, false, {message: 'Unknown User'});
         } else {
@@ -57,6 +56,22 @@ router.get('/logout', function(req, res) {
     req.logout();
     req.flash('success_msg', 'you have logged out successfully');
     res.redirect('/user/login');
+});
+
+router.post('/forgotPassword', function (req, res, next) {
+  var payload = {
+    email: req.body.email,
+    mobile: req.body.mobile
+  };
+  password_api.resetPassword(payload, function (err, results, fields) {
+        if (err) {
+            req.flash('error_msg', 'fsgsgs');
+            res.redirect('/');
+        } else {
+            req.flash('success_msg', 'you have logged out successfully');
+            res.redirect('/user/login');
+        }
+    });
 });
 
 module.exports = router;

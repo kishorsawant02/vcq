@@ -8,7 +8,7 @@ function getSMSClient() {
 
 function _messageContent(user, type) {
     var messageOption = {
-        to: '+918055999123', //user.mobile
+        to: '+918275540195', //user.mobile
         from: credential.sms.phoneNo,
         body: _getMessage(user,type)
     }
