@@ -3,6 +3,7 @@ var utils = require('../config/utils');
 var config = require('../config/settings');
 var bcrypt = require('bcryptjs');
 var mail = require('../config/mail');
+const uuidv1 = require('uuid/v1');
 
 var _resetPassword = function(payload, callback) {
     isUserExist(payload, function(error, results) {
@@ -13,7 +14,9 @@ var _resetPassword = function(payload, callback) {
                 if (error) {
                     callback(error);
                 } else {
-                    var password = bcrypt.hashSync(payload.mobile, config.saltRounds);
+                    var randonPasskeys = uuidv1().substr(0,12);
+                    payload['password'] = randonPasskeys;
+                    var password = bcrypt.hashSync(randonPasskeys, config.saltRounds);
                     var query = 'Update user set password = \'' + password + '\' where mobile = \'' + payload.mobile + '\';';
                     utils.operation(query, connection, function(error, results, fields) {
                         if (error) {

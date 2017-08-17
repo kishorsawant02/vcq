@@ -28,6 +28,7 @@
     "passport": "*",
     "passport-http": "*",
     "passport-local": "^1.0.0",
-    "twilio": "^3.4.0"
+    "twilio": "^3.4.0",
+    "uuid": "^3.1.0"
   }
 }
