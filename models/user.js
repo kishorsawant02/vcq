@@ -73,13 +73,6 @@ var _getAllUser = function (callback) {
         } else {
             var query = adminQuery;
             utils.operation(query, connection, function (error, results, fields) {
-            	if(error) {callback (error);}
-            	var error = null;
-            	switch(results.length) {
-            		case 0: 
-            			error = {message: config.authoring.submitted};
-            			break;
-            	}
             	callback(error, results, fields);
             });
         }

@@ -9,29 +9,27 @@
 		<table class="table">
 			<thead>
 			    <tr>
-					{{#if data}}
-				        <th>User Id</th>
-				        <th>FirstName</th>
-				        <th>Question ID</th>
-				        <th>Answer Option</th>
-				    {{else}}
-				    	<th>Register user details</th>
-				    {{/if}}
+			        <th>User Id</th>
+			        <th>FirstName</th>
+			        <th>Question ID</th>
+			        <th>Answer Option</th>
 			    </tr>
 			</thead>
 		    <tbody>
-				<tr>
-					{{#if data}}
-				    	{{#each data}}
+				{{#if data}}
+			    	{{#each data}}
+						<tr>
 		      		        <td>{{mobile}}</td>
 						    <td>{{firstName}}</td>
 						    <td>{{#each ques_date}} {{.}}<br>{{/each}}</td>
 						    <td>{{#each ans_option}} {{.}}<br>{{/each}}</td>
 				    	{{/each}}
-					{{else}}
+     		    		</tr>
+				{{else}}
+					<tr>
 						<td>{{noRecordFound}}</td>
-					{{/if}}
-     		    </tr>
+					</tr>
+				{{/if}}
 		    </tbody>
 		</table>
 	</div>
