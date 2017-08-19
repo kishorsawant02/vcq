@@ -6,25 +6,32 @@
 		    <p></p>
 		</div-->
 
-	  <!-- Table -->
 		<table class="table">
 			<thead>
 			    <tr>
-			        <th>User Id</th>
-			        <th>FirstName</th>
-			        <th>Question ID</th>
-			        <th>Answer Option</th>
+					{{#if data.length}}
+				        <th>User Id</th>
+				        <th>FirstName</th>
+				        <th>Question ID</th>
+				        <th>Answer Option</th>
+				    {{else}}
+				    	<th>Register user details</th>
+				    {{/if}}
 			    </tr>
 			</thead>
 		    <tbody>
-		    	{{#each data}}
-			        <tr>
-	      		        <td>{{mobile}}</td>
-					    <td>{{firstName}}</td>
-					    <td>{{#each ques_date}} {{.}}<br>{{/each}}</td>
-					    <td>{{#each ans_option}} {{.}}<br>{{/each}}</td>
-     		        </tr>
-			    {{/each}}
+				<tr>
+					{{#if data.length}}
+				    	{{#each data}}
+		      		        <td>{{mobile}}</td>
+						    <td>{{firstName}}</td>
+						    <td>{{#each ques_date}} {{.}}<br>{{/each}}</td>
+						    <td>{{#each ans_option}} {{.}}<br>{{/each}}</td>
+				    	{{/each}}
+					{{else}}
+						<td>{{noRecordFound}}</td>
+					{{/if}}
+     		    </tr>
 		    </tbody>
 		</table>
 	</div>

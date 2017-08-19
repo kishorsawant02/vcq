@@ -19,7 +19,7 @@ function _getMessage (user,type) {
     var content ;
     switch(type) {
         case 'REGISTRATION':
-            content = 'Hi' +user.firstName+', Welcome VqA app, Enjoy quiz contest...';
+            content = 'Hi ' +user.firstName+', Welcome Vbq app, Enjoy quiz contest...';
         break;
     }
     return content;

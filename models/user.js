@@ -48,7 +48,7 @@ var _getUser = function (username, password, callback) {
             	var error = null;
             	switch(results.length) {
             		case 0: 
-            			error = {message :config.authoring.userNameError };
+            			error = {message :config.authoring.userNameError};
             			callback(error, results, fields);
             			break;
             		case 1:

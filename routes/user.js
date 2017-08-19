@@ -4,6 +4,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var api = require('../models/user');
 var password_api = require('../models/password');
+var config = require('../config/settings');
 
 //Login Page
 router.get('/login', function(req, res) {
@@ -27,9 +28,9 @@ passport.use(new LocalStrategy(
     console.log('username', +username);
     api.getUser(username, password, function (err, results, fields) {
         if (err) {
-            return done(null, false, {message: 'Unknown User'});
+            return done(null, false, {message: err.message});
         } else {
-            return done(null, username, {successMessage: 'Logged in successfully...........'});
+            return done(null, username, {successMessage: ''});
         }
     });
     
@@ -65,10 +66,10 @@ router.post('/forgotPassword', function (req, res, next) {
   };
   password_api.resetPassword(payload, function (err, results, fields) {
         if (err) {
-            req.flash('error_msg', 'fsgsgs');
-            res.redirect('/');
+            req.flash('error_msg', err);
+            res.redirect('/user/login');
         } else {
-            req.flash('success_msg', 'you have logged out successfully');
+            req.flash('success_msg', config.authoring.resetPasswordSuccess);
             res.redirect('/user/login');
         }
     });

@@ -20,13 +20,13 @@ var _resetPassword = function(payload, callback) {
                     var query = 'Update user set password = \'' + password + '\' where mobile = \'' + payload.mobile + '\';';
                     utils.operation(query, connection, function(error, results, fields) {
                         if (error) {
-                            callback(true, results, fields);
+                            callback(config.authoring.systemError, results, fields);
                         } else {
                             var mailPromise = mail.triggerMail(payload, 'FORGOTPASSWORD');
-                            mailPromise.then(function() {
+                            mailPromise.then(function(abc,qq) {
                                 callback(error, results, fields);
                             }, function() {
-                                callback(true, results, fields);
+                                callback(config.authoring.resetMailError, results, fields);
                             });
                         }
                     });
@@ -44,11 +44,12 @@ function isUserExist(payload, callback) {
             var query = 'SELECT mobile, email, password FROM user WHERE mobile = \'' + payload.mobile + '\';';
             utils.operation(query, connection, function(error, results, fields) {
                 if (error || (results.length == 0)) {
-                    callback(true, results, fields);
-                } else if (results[0].email == payload.email) {
+                    error = (results.length == 0) ? config.authoring.invalidUserName : config.authoring.systemError ; 
+                    callback(error, results, fields);
+                } else if ((results[0].email == payload.email) || (payload.email == true)) {
                     callback(error, results, fields);
                 } else {
-                    callback(error, results, fields);
+                    callback(config.authoring.invalidEmail, results, fields);
                 }
             });
         }
@@ -56,6 +57,7 @@ function isUserExist(payload, callback) {
 };
 
 function _updatePassword(payload, callback) {
+    payload['email'] = true;
     isUserExist(payload, function(error, results) {
         if (error) {
             callback(error, results);
@@ -70,7 +72,7 @@ function _updatePassword(payload, callback) {
                         var query = 'Update user set password = \'' + password + '\' where mobile = \'' + payload.mobile + '\';';
                         utils.operation(query, connection, function(error, results, fields) {
                             if (error) {
-                                callback(true, results, fields);
+                                callback(config.authoring.systemError, results, fields);
                             } else {
                                 callback(error, results, fields);
                             }
@@ -79,7 +81,7 @@ function _updatePassword(payload, callback) {
                 });
             } else {
                 //old password does not match
-                callback(true, results);
+                callback(config.authoring.oldPasswordDoesNotMatch, results);
             }
         }
     });

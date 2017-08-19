@@ -2,14 +2,15 @@ var express = require('express');
 var router = express.Router();
 var api = require('../models/user');
 var _ = require('lodash');
+var config = require('../config/settings');
 var utils = require('../config/utils');
 
 
 router.get('/', utils.ensureAuthenticated , function(req, res) {
     api.getAllUser(function(err, results, fields) {
             if (err) {
-                req.flash('error_msg', err.message);
-                res.redirect('/error');
+                req.flash('error_msg', config.authoring.systemError);
+                res.redirect('/');
             } else {
                 var data = {};
                 _.each(results, function(item) {
@@ -27,7 +28,7 @@ router.get('/', utils.ensureAuthenticated , function(req, res) {
                         data[item.mobile]['ans_option'].push(item.ques_date);
                     }
                 });
-            res.render('admin', { data: data });
+            res.render('admin', { data: data, noRecordFound: config.authoring.noRecordFound});
         }
     });
 });
