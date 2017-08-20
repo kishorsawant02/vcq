@@ -18,7 +18,7 @@ module.exports = {
         waitForConnections: true
     },*/
     'authoring': {
-    	'passwordError' : 'Please enter correct password',
+    	'passwordError' : 'Please enter correct password.',
     	'userNameError' : 'Please enter correct Mobile Number',
         'submitted': 'You have alredy answered todays question.<br /> Please come back tomorrow for next question.',
         'contactFormSuccessMsg': 'You Request submitted successfully, Our representative will get in touch.',
