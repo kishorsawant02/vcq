@@ -9,7 +9,7 @@
 		<table class="table">
 			<thead>
 			    <tr>
-					{{#if data.length}}
+					{{#if data}}
 				        <th>User Id</th>
 				        <th>FirstName</th>
 				        <th>Question ID</th>
@@ -21,7 +21,7 @@
 			</thead>
 		    <tbody>
 				<tr>
-					{{#if data.length}}
+					{{#if data}}
 				    	{{#each data}}
 		      		        <td>{{mobile}}</td>
 						    <td>{{firstName}}</td>
