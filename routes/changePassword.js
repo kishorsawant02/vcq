@@ -15,7 +15,7 @@ router.post('/updatePassword', function(req, res) {
     if (values.newPassword == values.repeatPassword) {
         api.updatePassword(values, function(error, success) {
             if (error) {
-                req.flash('error_msg', config.authoring.passwordUpdateFailed);
+                req.flash('error_msg', error);
             } else {
                 req.flash('success_msg', config.authoring.passwordUpdated);
             }
